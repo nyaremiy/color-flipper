@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Flipper</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/animation.css" />
+    <link rel="stylesheet" href="./css/media-queries.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="logo">Color Flipper</div>
+      </header>
+      <div class="main">
+        <div class="info">
+          <span>Background Color: </span>
+          <span id="js-color-text" class="info__color">#f0f0f0</span>
+        </div>
+        <div class="buttons">
+          <button type="button" class="btn" id="js-btn-new-color">
+            new color
+          </button>
+          <button type="button" class="btn" id="js-btn-copy-color">copy</button>
+          <!-- <button type="button" class="btn" id="js-btn-copy-color">save</button> -->
+        </div>
+      </div>
+      <div class="copy-to-clipboard">
+        The color is copied to the clipboard :)
+      </div>
+    </div>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
