@@ -64,21 +64,14 @@ function copyToClipboard(color) {
   navigator.clipboard.writeText(color);
 }
 
-const boxColorsLines = document.querySelector('.box-colors__lines');
 const boxColors = document.querySelector('.box-colors');
 
-//
-
-boxColorsLines.addEventListener('mouseover', () => {
-  boxColors.classList.toggle('box-colors--open');
+boxColors.addEventListener('click', () => {
+  boxColors.classList.toggle('open');
 });
 
-// Вешаем на прикосновение функцию handleTouchStart
-// document.addEventListener('touchstart', handleTouchStart, false);
-boxColorsLines.addEventListener('touchstart', handleTouchStart, false);
-// А на движение пальцем по экрану - handleTouchMove
-// document.addEventListener('touchmove', handleTouchMove, false);
-boxColorsLines.addEventListener('touchmove', handleTouchMove, false);
+boxColors.addEventListener('touchstart', handleTouchStart, false);
+boxColors.addEventListener('touchmove', handleTouchMove, false);
 
 var xDown = null;
 var yDown = null;
@@ -98,23 +91,14 @@ function handleTouchMove(evt) {
 
   var xDiff = xDown - xUp;
   var yDiff = yDown - yUp;
-  // немного поясню здесь. Тут берутся модули движения по оси абсцисс и ординат (почему модули? потому что если движение сделано влево или вниз, то его показатель будет отрицательным) и сравнивается, чего было больше: движения по абсциссам или ординатам. Нужно это для того, чтобы, если пользователь провел вправо, но немного наискосок вниз, сработал именно коллбэк для движения вправо, а ни как-то иначе.
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
     /*most significant*/
     if (xDiff > 0) {
       /* left swipe */
-      console.log(1);
-      boxColors.style = 'right: 0';
+      boxColors.classList.toggle('open');
     } else {
       /* right swipe */
-      boxColors.style = 'right: -380px';
-    }
-  } else {
-    // Это вам, в общем-то, не надо, вы ведь только влево-вправо собираетесь двигать
-    if (yDiff > 0) {
-      /* up swipe */
-    } else {
-      /* down swipe */
+      boxColors.classList.toggle('open');
     }
   }
   /* reset values */
