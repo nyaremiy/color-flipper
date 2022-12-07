@@ -146,9 +146,6 @@ svg {
   bottom: 0;
   top: 0;
 }
-.box-colors:hover {
-  right: 0;
-}
 
 .box-color__header {
   border-bottom: 1px solid #f5f5f5;
