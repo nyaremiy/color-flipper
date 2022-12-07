@@ -68,6 +68,8 @@ const boxColors = document.querySelector('.box-colors');
 
 boxColors.addEventListener('touchstart', handleTouchStart, false);
 boxColors.addEventListener('touchmove', handleTouchMove, false);
+document.body.addEventListener('touchstart', handleTouchStart, false);
+document.body.addEventListener('touchmove', handleTouchMove, false);
 
 var xDown = null;
 var yDown = null;
