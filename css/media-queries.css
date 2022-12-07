@@ -22,4 +22,7 @@
   .copy-to-clipboard {
     padding: 10px;
   }
+  .open {
+    width: 90%;
+  }
 }

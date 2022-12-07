@@ -66,10 +66,6 @@ function copyToClipboard(color) {
 
 const boxColors = document.querySelector('.box-colors');
 
-boxColors.addEventListener('click', () => {
-  boxColors.classList.toggle('open');
-});
-
 boxColors.addEventListener('touchstart', handleTouchStart, false);
 boxColors.addEventListener('touchmove', handleTouchMove, false);
 
@@ -92,7 +88,6 @@ function handleTouchMove(evt) {
   var xDiff = xDown - xUp;
   var yDiff = yDown - yUp;
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
-    /*most significant*/
     if (xDiff > 0) {
       /* left swipe */
       boxColors.classList.toggle('open');
@@ -104,4 +99,33 @@ function handleTouchMove(evt) {
   /* reset values */
   xDown = null;
   yDown = null;
+}
+
+const saveColor = [];
+
+const btnSave = document.getElementById('js-btn-save-color');
+const listColor = document.querySelector('.box-colors__list');
+
+btnSave.addEventListener('click', () => {
+  saveColor.push(hexColor);
+  fillListSaveColors();
+});
+
+function fillListSaveColors() {
+  listColor.innerHTML = null;
+  saveColor.forEach((color) => {
+    listColor.innerHTML += `
+    <div class="color">
+      <div class="color__bg" style="background: ${color}"></div>
+      <div class="color__hex">${color}</div>
+      <button
+        type="button"
+        class="btn btn--remove"
+        id="js-btn-copy-color"
+      >
+        remove
+      </button>
+  </div>
+`;
+  });
 }
