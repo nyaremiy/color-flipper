@@ -9,7 +9,6 @@ html::-webkit-scrollbar {
 
 /* Track */
 html::-webkit-scrollbar-track {
-  border-radius: 10px;
   background: rgb(0 0 0 / 40%);
 }
 
@@ -114,6 +113,11 @@ svg {
   transform: translateY(4px);
 }
 
+.btn--remove {
+  background-color: #df314e;
+  color: #fff;
+}
+
 .copy-to-clipboard {
   position: absolute;
   background-color: #272727;
@@ -193,7 +197,7 @@ svg {
   padding: 10px;
 }
 .color__bg {
-  background-color: #3e8e41;
+  border: 1px solid #fff;
   border-radius: 2px;
   height: 20px;
   width: 20px;
@@ -248,4 +252,10 @@ svg {
 }
 .box-colors__header {
   margin-bottom: 35px;
+}
+.disabled-click {
+  color: rgb(235, 222, 222);
+  letter-spacing: 2px;
+  pointer-events:none;
+  cursor: default;
 }

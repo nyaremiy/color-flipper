@@ -1,4 +1,5 @@
-console.log('App started...');
+import { SYMBOLS as symbols } from "./hexadecimalSymbols.js";
+import { handleTouchMove, handleTouchStart } from "./swipe.js";
 
 const mainBlock = document.querySelector('.main');
 const buttonGenerateNewColor = document.getElementById('js-btn-new-color');
@@ -19,24 +20,6 @@ buttonCopyToClipboardColor.addEventListener('click', () => {
 });
 
 function hexGeneratorColor() {
-  const symbols = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '0',
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-  ];
   let color = '#';
 
   for (let i = 0; i < 6; i++) {
@@ -64,6 +47,7 @@ function copyToClipboard(color) {
   navigator.clipboard.writeText(color);
 }
 
+// Бокова панель збережених кольорів
 const boxColors = document.querySelector('.box-colors');
 
 boxColors.addEventListener('touchstart', handleTouchStart, false);
@@ -71,63 +55,74 @@ boxColors.addEventListener('touchmove', handleTouchMove, false);
 document.body.addEventListener('touchstart', handleTouchStart, false);
 document.body.addEventListener('touchmove', handleTouchMove, false);
 
-var xDown = null;
-var yDown = null;
+// Збережені кольори
 
-function handleTouchStart(evt) {
-  xDown = evt.touches[0].clientX;
-  yDown = evt.touches[0].clientY;
-}
-
-function handleTouchMove(evt) {
-  if (!xDown || !yDown) {
-    return;
-  }
-
-  var xUp = evt.touches[0].clientX;
-  var yUp = evt.touches[0].clientY;
-
-  var xDiff = xDown - xUp;
-  var yDiff = yDown - yUp;
-  if (Math.abs(xDiff) > Math.abs(yDiff)) {
-    if (xDiff > 0) {
-      /* left swipe */
-      boxColors.classList.toggle('open');
-    } else {
-      /* right swipe */
-      boxColors.classList.toggle('open');
-    }
-  }
-  /* reset values */
-  xDown = null;
-  yDown = null;
-}
-
-const saveColor = [];
+let savedColors = [];
 
 const btnSave = document.getElementById('js-btn-save-color');
 const listColor = document.querySelector('.box-colors__list');
 
 btnSave.addEventListener('click', () => {
-  saveColor.push(hexColor);
+  saveColorToArray(hexColor);
   fillListSaveColors();
+  clickToSaveColor();
 });
+
+function saveColorToArray (color) {
+  if (!checkSameColor(color)) {
+    savedColors.push(color);
+  }
+}
+
+function checkSameColor(newColor) {
+  let isColor = false;
+  savedColors.forEach((color) => {
+    if (color === newColor) {
+      isColor = true;
+      return isColor;
+    }
+  });
+  return isColor;
+}
 
 function fillListSaveColors() {
   listColor.innerHTML = null;
-  saveColor.forEach((color) => {
+  savedColors.forEach((color) => {
     listColor.innerHTML += `
-    <div class="color">
+    <div class="color" >
       <div class="color__bg" style="background: ${color}"></div>
-      <div class="color__hex">${color}</div>
+      <div class="color__hex" data-color="${color}">${color}</div>
       <button
         type="button"
         class="btn btn--remove"
-        id="js-btn-copy-color"
+        data-color="${color}"
       >
         remove
       </button>
   </div>
 `;
   });
+}
+
+function clickToSaveColor() {
+  const colorsListHtml = document.querySelector('.box-colors__list');
+
+  colorsListHtml.addEventListener('click', (e) => {
+    if(e.target.classList.contains('btn--remove')) {
+      savedColors = savedColors.filter(color => color !==  e.target.dataset.color);
+      fillListSaveColors();
+    }
+    if(e.target.classList.contains('color__hex')) {
+      let color = e.target.dataset.color;
+      console.dir(color);
+      copyToClipboard(color);
+      e.target.classList.add('disabled-click');
+      e.target.textContent = 'Copied...'
+      setTimeout(() => {
+        e.target.classList.remove('disabled-click');
+        e.target.textContent = `${color}`;
+      }, 800)
+    }
+  })
+
 }
