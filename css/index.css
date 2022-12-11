@@ -3,22 +3,17 @@
   padding: 0;
   margin: 0;
 }
+
 html::-webkit-scrollbar {
   width: 10px;
 }
-
-/* Track */
 html::-webkit-scrollbar-track {
   background: rgb(0 0 0 / 40%);
 }
-
-/* Handle */
 html::-webkit-scrollbar-thumb {
   background: #dfdfdf;
   border-radius: 10px;
 }
-
-/* Handle on hover */
 html::-webkit-scrollbar-thumb:hover {
   background: #555;
   cursor: pointer;
@@ -88,6 +83,8 @@ svg {
   justify-content: center;
   align-items: center;
   column-gap: 10px;
+  flex-wrap: wrap;
+  row-gap: 10px;
   display: flex;
 }
 .btn {
@@ -166,24 +163,18 @@ svg {
   overflow-y: auto;
   height: 92vh;
 }
-/* width */
+
 .box-colors__list::-webkit-scrollbar {
   width: 5px;
 }
-
-/* Track */
 .box-colors__list::-webkit-scrollbar-track {
   border-radius: 20px;
   background: #f1f1f1;
 }
-
-/* Handle */
 .box-colors__list::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 20px;
 }
-
-/* Handle on hover */
 .box-colors__list::-webkit-scrollbar-thumb:hover {
   background: #555;
   cursor: pointer;
@@ -206,7 +197,24 @@ svg {
   letter-spacing: 1px;
   cursor: pointer;
   color: #fff;
+  position: relative;
+  padding: 5px;
 }
+.color__hex::before {
+  content: '';
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #6c6c6c;
+  transition: all 0.2s linear;
+}
+.color__hex:hover::before {
+    width: 100%;
+    left: 0;
+}
+
 .btn--remove {
   padding: 0 15px;
   font-size: 12px;
@@ -256,6 +264,6 @@ svg {
 .disabled-click {
   color: rgb(235, 222, 222);
   letter-spacing: 2px;
-  pointer-events:none;
+  pointer-events: none;
   cursor: default;
 }

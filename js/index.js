@@ -114,14 +114,13 @@ function clickToSaveColor() {
     }
     if(e.target.classList.contains('color__hex')) {
       let color = e.target.dataset.color;
-      console.dir(color);
       copyToClipboard(color);
       e.target.classList.add('disabled-click');
       e.target.textContent = 'Copied...'
       setTimeout(() => {
         e.target.classList.remove('disabled-click');
         e.target.textContent = `${color}`;
-      }, 800)
+      }, 300)
     }
   })
 
